@@ -19,6 +19,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { getDailyPrompt } from "@/actions/public";
 
 const features = [
   {
@@ -41,7 +42,9 @@ const features = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const advice = await getDailyPrompt();
+
   return (
     <div className="relative container mx-auto px-20 pt-16 pb-16">
       {/* Hero Section */}
@@ -76,7 +79,7 @@ export default function Home() {
 
             <div className="space-y-4 p-4">
               <h3 className="text-xl font-semibold text-orange-900">
-                Daily Prompts
+                {advice ? advice : "My Thoughts Today"}
               </h3>
 
               <Skeleton className="h-4 bg-orange-100 rounded w-3/4" />
@@ -228,8 +231,6 @@ export default function Home() {
           })}
         </Accordion>
       </div>
-
-
 
       {/* CTA sectiom */}
 

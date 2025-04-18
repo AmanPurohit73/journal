@@ -9,7 +9,7 @@ import { Card, CardContent } from "./ui/card";
 const Testimonials = () => {
   return (
     <div className="mt-24">
-      <h2 className="text-3xl font-bold text-center text-red-900 mb-12">What Your Writers say</h2>
+      <h2 className="text-3xl font-bold text-center text-red-900 mb-12">What Our Writers say</h2>
       <Carousel
         plugins={[
           Autoplay({
