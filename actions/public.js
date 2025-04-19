@@ -1,6 +1,6 @@
 "use server";
 
-import { unstable_cache } from "next/cache";
+import { revalidateTag, unstable_cache } from "next/cache";
 
 export async function getPixabayImage(query) {
   try {
@@ -23,16 +23,21 @@ export const getDailyPrompt = unstable_cache(
       });
       const data = await res.json();
       return data.slip.advice;
-    } catch (e) {
+    } catch (error) {
       return {
         success: false,
-        data: "What's on youy mind Today ?",
+        data: "What's on your mind today?",
       };
     }
   },
-  ["daily-prompt"],
+  ["daily-prompt"], // cache key
   {
-    revalidate: 56400,
+    revalidate: 86400, // 24 hours in seconds
     tags: ["daily-prompt"],
   }
 );
+
+// Optional: Function to force revalidate the cache
+export async function revalidateDailyPrompt() {
+  revalidateTag("daily-prompt");
+}
